@@ -1,0 +1,123 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:    # also allow manual triggering from the Actions tab
+
+permissions:
+  contents: write       # needed to create releases + upload artifacts
+
+concurrency:
+  # Don't pile up parallel builds on the runner if you push twice quickly;
+  # cancel the older one.
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: [self-hosted, macOS]
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show build environment
+        run: |
+          echo "runner:     $RUNNER_NAME"
+          echo "workspace:  $GITHUB_WORKSPACE"
+          sw_vers
+          node --version
+          npm --version
+
+      - name: Syntax-check server JS
+        run: |
+          set -euo pipefail
+          for f in index.js bleManager.js commands.js commandParameter.js \
+                   neewerLight.js neewerLightConstant.js neewerLightFX.js \
+                   presets.js goveeEffects.js logger.js; do
+            echo "→ node --check $f"
+            node --check "$f"
+          done
+
+      - name: Build Stream Deck plugin
+        run: ./streamdeck-plugin/build-plugin.sh
+
+      - name: Package artifacts
+        id: package
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+
+          # Stream Deck plugin bundle (double-click to install on macOS or Windows)
+          cp streamdeck-plugin/dist/com.boisclub.lightcontroller.streamDeckPlugin \
+             artifacts/com.boisclub.lightcontroller.streamDeckPlugin
+
+          # Version = ISO date + short SHA so multiple commits in a day don't collide.
+          VERSION="$(date -u +%Y.%m.%d)-${GITHUB_SHA::7}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          # Source tarball for the Node server — clone-free install path.
+          # Excludes anything a fresh consumer doesn't need (or shouldn't ship):
+          # node_modules, archive, build outputs, VCS, OS cruft.
+          TARBALL="artifacts/bois-club-light-controller-${VERSION}.tar.gz"
+          tar -czf "$TARBALL" \
+            --exclude='./node_modules' \
+            --exclude='./archive' \
+            --exclude='./streamdeck-plugin/dist' \
+            --exclude='./.git' \
+            --exclude='./.github' \
+            --exclude='./artifacts' \
+            --exclude='.DS_Store' \
+            ./*.js ./*.json ./*.md ./*.sh ./*.plist ./public ./streamdeck-plugin
+
+          echo "--- built artifacts ---"
+          ls -lh artifacts/
+
+      - name: Write release notes
+        run: |
+          set -euo pipefail
+          {
+            echo "Automated build from commit \`${GITHUB_SHA}\`."
+            echo ""
+            echo "## Install"
+            echo ""
+            echo "### Stream Deck plugin (easiest)"
+            echo ""
+            echo "1. Download \`com.boisclub.lightcontroller.streamDeckPlugin\` below."
+            echo "2. Double-click it. The Stream Deck app prompts; click **Install**."
+            echo "3. In any Bois Club action's Property Inspector, set the server URL to"
+            echo "   wherever the controller is running (default \`http://127.0.0.1:31337\`)."
+            echo "   The URL is a single global setting — change it once, every key uses it."
+            echo ""
+            echo "### Server (Node service + Web UI)"
+            echo ""
+            echo "1. Download the \`bois-club-light-controller-*.tar.gz\` below and extract it."
+            echo "2. \`cd\` into the extracted folder."
+            echo "3. \`npm install\` to fetch dependencies."
+            echo "4. Either \`npm start\` to run interactively, or \`./install.sh\` to register the"
+            echo "   macOS LaunchAgent so the service starts on every login / reboot."
+            echo "5. Open \`http://127.0.0.1:31337\` for the Web UI."
+            echo ""
+            echo "See \`README.md\` inside the tarball for full HTTP API, vibe presets, and gotchas."
+            echo ""
+            echo "## Commit"
+            echo '```'
+            git log -1 --pretty=%B
+            echo '```'
+          } > release-notes.md
+          echo "--- release notes ---"
+          cat release-notes.md
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TAG="v${{ steps.package.outputs.version }}"
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file release-notes.md \
+            artifacts/com.boisclub.lightcontroller.streamDeckPlugin \
+            artifacts/bois-club-light-controller-${{ steps.package.outputs.version }}.tar.gz

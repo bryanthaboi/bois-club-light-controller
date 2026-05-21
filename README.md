@@ -239,13 +239,13 @@ README.md                 This file
 
 ## Stream Deck plugin
 
-A complete plugin called **Bois Club Light Controller** ships under [`streamdeck-plugin/`](./streamdeck-plugin/). Install:
+A complete plugin called **Bois Club Light Controller** ships under [`streamdeck-plugin/`](./streamdeck-plugin/).
 
-```bash
-streamdeck-plugin/install-plugin.sh
-```
+**Easiest install (macOS or Windows):** double-click [`streamdeck-plugin/dist/com.boisclub.lightcontroller.streamDeckPlugin`](./streamdeck-plugin/dist/com.boisclub.lightcontroller.streamDeckPlugin). The Stream Deck app picks it up, prompts to install, and registers the plugin.
 
-It quits Stream Deck, copies the bundle into `~/Library/Application Support/com.elgato.StreamDeck/Plugins/`, and relaunches. The plugin exposes 12 actions in 4 families:
+**Script install (macOS):** `streamdeck-plugin/install-plugin.sh` — quits Stream Deck, copies the unpacked bundle into `~/Library/Application Support/com.elgato.StreamDeck/Plugins/`, and relaunches.
+
+The plugin exposes 12 actions in 4 families:
 
 - **Neewer ·** Power / CCT / HSI / Scene — pick a specific Neewer light (or all) and set CCT, hue/sat colour, brightness, or fire a scene 1–17.
 - **Govee ·** Power / Brightness / Color / Effect — pick a specific Govee device (or all), drive it.
