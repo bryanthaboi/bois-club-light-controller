@@ -25,6 +25,10 @@ A Node.js service that discovers and controls Neewer BLE lights plus Govee LAN l
 
 ## Install
 
+> **Just want the Stream Deck plugin?** Grab `com.boisclub.lightcontroller.streamDeckPlugin` from the [latest release](https://github.com/bryanthaboi/bois-club-light-controller/releases/latest) and double-click it. No clone, no `npm install` needed — the plugin just talks to whichever machine on your LAN is running the server.
+
+To run the server itself you do need the source — either clone the repo or download the source tarball from the [latest release](https://github.com/bryanthaboi/bois-club-light-controller/releases/latest) and extract it. Then:
+
 ```bash
 # 1. fetch deps
 npm install
@@ -241,9 +245,9 @@ README.md                 This file
 
 A complete plugin called **Bois Club Light Controller** ships under [`streamdeck-plugin/`](./streamdeck-plugin/).
 
-**Easiest install (macOS or Windows):** double-click [`streamdeck-plugin/dist/com.boisclub.lightcontroller.streamDeckPlugin`](./streamdeck-plugin/dist/com.boisclub.lightcontroller.streamDeckPlugin). The Stream Deck app picks it up, prompts to install, and registers the plugin.
+**Easiest install (macOS or Windows):** download `com.boisclub.lightcontroller.streamDeckPlugin` from the [latest release](https://github.com/bryanthaboi/bois-club-light-controller/releases/latest) and double-click it. The Stream Deck app prompts to install and registers the plugin.
 
-**Script install (macOS):** `streamdeck-plugin/install-plugin.sh` — quits Stream Deck, copies the unpacked bundle into `~/Library/Application Support/com.elgato.StreamDeck/Plugins/`, and relaunches.
+**From source (macOS):** if you've cloned the repo, run `./streamdeck-plugin/build-plugin.sh` to package it locally, or `./streamdeck-plugin/install-plugin.sh` to copy the unpacked bundle straight into `~/Library/Application Support/com.elgato.StreamDeck/Plugins/` and relaunch Stream Deck.
 
 The plugin exposes 12 actions in 4 families:
 
