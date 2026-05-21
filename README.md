@@ -219,10 +219,7 @@ commands.js               Command registry — every handler returns { ok, … }
 commandParameter.js       Query-string parsing
 presets.js                Creative vibe presets (sunset, horror, rave, …)
 goveeEffects.js           Software-driven effects for Govee (police, rainbow, …)
-colorUtils.js             RGB ↔ HSV helpers
-dataExtensions.js         Buffer → hex helper
 logger.js                 Level-gated console logger (NEEWER_LOG_LEVEL)
-storageManager.js         JSON save/load (unused at runtime — kept for Swift parity)
 
 public/index.html         Web UI markup
 public/styles.css         Dark theme
@@ -236,7 +233,6 @@ streamdeck-plugin/        Stream Deck plugin source (com.boisclub.lightcontrolle
 streamdeck-plugin/install-plugin.sh  Install the plugin into Stream Deck and restart the app
 streamdeck-plugin/make-icons.js      Pure-Node icon generator (light-bulb shapes)
 
-STREAMDECK_PLUGIN.md      Stream Deck plugin internals & customisation guide
 ARCHITECTURE.md           Deeper architecture notes
 README.md                 This file
 ```
@@ -287,7 +283,7 @@ launchctl print gui/$(id -u)/com.boisclub.lightcontroller | head
 - **`lightType` defaults to `42`** (BH-30S RGB / MS60C). The hook that would update it from BLE notifications is stubbed in `neewerLight.handleNotifyUpdate`.
 - **Multi-light** — cap is `NEEWER_MAX_LIGHTS` (default 8), no longer hard-coded to 1.
 
-See [STREAMDECK_PLUGIN.md](./STREAMDECK_PLUGIN.md) for building a Stream Deck plugin against this API and [ARCHITECTURE.md](./ARCHITECTURE.md) for internals.
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for internals.
 
 ## License
 

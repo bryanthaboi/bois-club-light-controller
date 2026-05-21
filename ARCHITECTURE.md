@@ -49,9 +49,7 @@ A third side-path (Govee LAN) is bolted onto the HTTP layer via the `govee-lan-c
 | `neewerLight.js` | One instance per peripheral. Connects, discovers GATT, writes commands (with timeout + non-throwing failure), runs scenes, exposes `snapshot()` for `/lights`. |
 | `neewerLightConstant.js` | Static class of protocol bytes, light-type tables, and command builders. |
 | `neewerLightFX.js` | Scene factory (17 static methods, each returns a `NeewerLightFX` with appropriate flags). |
-| `colorUtils.js`, `dataExtensions.js` | Pure helpers (HSV / hex). |
 | `logger.js` | Level-gated logger driven by `NEEWER_LOG_LEVEL`. |
-| `storageManager.js` | JSON file persistence in `~/.neewerLite/`. **Not wired into runtime** — kept for Swift parity. |
 | `public/*` | Static web UI. Pure browser JS, polls `/lights` every 2 s. |
 | `com.boisclub.lightcontroller.plist` + `install.sh` + `uninstall.sh` | `launchd` LaunchAgent template + installer / tear-down. |
 
@@ -145,4 +143,4 @@ LaunchAgent policy:
 - Govee features depend on what the upstream `govee-lan-control` library supports — older firmwares may ignore RGB writes or coalesce them.
 - The triple-write in `setCCTValues` is a workaround, not a fix. Some lights still drop writes during heavy BT contention; the next keepalive recovers them.
 
-For HTTP API tables, preset list, install steps, and example calls see [README.md](./README.md). For wrapping this in a Stream Deck plugin see [STREAMDECK_PLUGIN.md](./STREAMDECK_PLUGIN.md).
+For HTTP API tables, preset list, install steps, and example calls see [README.md](./README.md).
