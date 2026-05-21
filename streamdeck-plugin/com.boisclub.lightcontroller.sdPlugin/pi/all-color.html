@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+</head><body>
+<div id="server"></div>
+
+<h2>All · Colour</h2>
+<div class="row">
+  <label>Colour</label>
+  <input type="color" id="hex">
+  <span class="value" id="hexVal"></span>
+</div>
+<div class="row">
+  <label>Brightness</label>
+  <input type="range" id="brightness" min="0" max="100" step="1">
+  <span class="value" id="brrVal"></span>
+</div>
+<div class="hint">RGB-capable Neewer lights and every Govee device get the same colour.</div>
+
+<script src="common.js"></script>
+<script>
+document.getElementById('server').innerHTML = boisPI.serverBlock();
+boisPI.onSettings = (s) => {
+  boisPI.wireServerBlock();
+  if (!s.hex) s.hex = '#ff8800';
+  if (s.brightness == null) s.brightness = 80;
+  document.getElementById('hex').value = s.hex;
+  document.getElementById('hexVal').textContent = s.hex.toUpperCase();
+  document.getElementById('brightness').value = s.brightness;
+  document.getElementById('brrVal').textContent = s.brightness + '%';
+  boisPI.bind('#hex', 'hex');
+  boisPI.bind('#brightness', 'brightness', (v) => parseInt(v, 10));
+  document.getElementById('hex').addEventListener('input', (e) => document.getElementById('hexVal').textContent = e.target.value.toUpperCase());
+  document.getElementById('brightness').addEventListener('input', (e) => document.getElementById('brrVal').textContent = e.target.value + '%');
+};
+</script>
+</body></html>

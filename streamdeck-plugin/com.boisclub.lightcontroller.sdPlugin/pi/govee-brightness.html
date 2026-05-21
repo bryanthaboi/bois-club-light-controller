@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+</head><body>
+<div id="server"></div>
+
+<h2>Govee · Brightness</h2>
+<div class="row">
+  <label>Device</label>
+  <select id="device"></select>
+  <button id="refresh">↻</button>
+</div>
+<div class="row">
+  <label>Brightness</label>
+  <input type="range" id="brightness" min="0" max="100" step="1">
+  <span class="value" id="brrVal"></span>
+</div>
+
+<script src="common.js"></script>
+<script>
+document.getElementById('server').innerHTML = boisPI.serverBlock();
+boisPI.onSettings = (s) => {
+  boisPI.wireServerBlock();
+  if (s.brightness == null) s.brightness = 100;
+  document.getElementById('brightness').value = s.brightness;
+  document.getElementById('brrVal').textContent = s.brightness + '%';
+  boisPI.loadGoveeDevices('device', s.device, true);
+  boisPI.bind('#device', 'device');
+  boisPI.bind('#brightness', 'brightness', (v) => parseInt(v, 10));
+  document.getElementById('brightness').addEventListener('input', (e) => document.getElementById('brrVal').textContent = e.target.value + '%');
+  document.getElementById('refresh').onclick = () => boisPI.loadGoveeDevices('device', boisPI.settings.device, true);
+};
+</script>
+</body></html>

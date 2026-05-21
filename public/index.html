@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bois Club Light Controller</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo-dot"></span>
+      <h1>Bois Club Light Controller</h1>
+      <span id="connStatus" class="conn-badge">…</span>
+    </div>
+    <div class="global-actions">
+      <button data-action="allOn">All On</button>
+      <button data-action="allOff">All Off</button>
+      <button data-action="rescan">Rescan BLE</button>
+      <button data-action="rediscover">Re-discover Govee</button>
+      <button data-action="random" class="accent">🎲 Random</button>
+      <button data-action="surprise" class="accent">✨ Surprise Me</button>
+    </div>
+  </header>
+
+  <section class="all-lights">
+    <h2>All Lights · one control for everything</h2>
+    <div class="all-panel">
+      <div class="row">
+        <label>Power</label>
+        <button data-all="on">On</button>
+        <button data-all="off">Off</button>
+        <button data-all="toggle">Toggle</button>
+      </div>
+      <div class="row">
+        <label>Colour</label>
+        <input type="color" id="allColor" value="#ff8800">
+        <button data-all="color">Apply</button>
+        <span class="muted">→ Neewer (HSI) + Govee (RGB)</span>
+      </div>
+      <div class="row">
+        <label>Brightness</label>
+        <input type="range" id="allBrightness" min="0" max="100" value="80">
+        <span class="value" id="allBrightnessVal">80%</span>
+        <button data-all="brightness">Apply</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="presets">
+    <h2>Vibes</h2>
+    <div id="presetGrid" class="preset-grid"></div>
+  </section>
+
+  <section class="lights">
+    <h2>Neewer lights</h2>
+    <div id="lightGrid" class="light-grid">
+      <p id="noLights" class="empty">No Neewer lights connected yet — checking for advertisements…</p>
+    </div>
+  </section>
+
+  <section class="govee">
+    <h2>Govee lights · <span id="goveeStatus" class="muted">…</span></h2>
+    <div id="goveeGrid" class="light-grid">
+      <p id="noGovee" class="empty">No Govee devices on the LAN. Open the Govee Home app → device → settings → enable <strong>LAN Control</strong>, then click <em>Re-discover Govee</em>.</p>
+    </div>
+  </section>
+
+  <section class="logs">
+    <h2>Recent activity</h2>
+    <pre id="logTail"></pre>
+  </section>
+
+  <footer>
+    <span class="muted">Bois Club Light Controller · :31337 · polling every 2s</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

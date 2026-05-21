@@ -1,0 +1,128 @@
+{
+  "Name": "Bois Club Light Controller",
+  "Description": "Drive Neewer (BLE) and Govee (LAN) lights through the Bois Club Light Controller HTTP API. Per-action targeting, scenes, presets, Govee software effects, and one-tap All-lights controls.",
+  "Author": "Bois Club",
+  "Version": "1.0.0",
+  "Icon": "images/plugin",
+  "CategoryIcon": "images/category",
+  "Category": "Bois Club",
+  "URL": "http://127.0.0.1:31337/",
+  "CodePath": "code/plugin.html",
+  "PropertyInspectorPath": "pi/default.html",
+  "SDKVersion": 2,
+  "Software": { "MinimumVersion": "6.5" },
+  "OS": [
+    { "Platform": "mac", "MinimumVersion": "12" },
+    { "Platform": "windows", "MinimumVersion": "10" }
+  ],
+  "Actions": [
+    {
+      "UUID": "com.boisclub.lightcontroller.neewer-power",
+      "Name": "Neewer · Power",
+      "Tooltip": "Power on / off / toggle one Neewer light or all of them.",
+      "Icon": "images/neewer",
+      "PropertyInspectorPath": "pi/neewer-power.html",
+      "States": [{ "Image": "images/neewer-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "Power" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.neewer-cct",
+      "Name": "Neewer · CCT",
+      "Tooltip": "Set color temperature (CCT) on a Neewer light.",
+      "Icon": "images/neewer",
+      "PropertyInspectorPath": "pi/neewer-cct.html",
+      "States": [{ "Image": "images/neewer-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "CCT" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.neewer-hsi",
+      "Name": "Neewer · HSI",
+      "Tooltip": "Set hue / saturation / brightness on a Neewer light.",
+      "Icon": "images/neewer",
+      "PropertyInspectorPath": "pi/neewer-hsi.html",
+      "States": [{ "Image": "images/neewer-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "HSI" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.neewer-scene",
+      "Name": "Neewer · Scene",
+      "Tooltip": "Run a Neewer scene (1–17).",
+      "Icon": "images/neewer",
+      "PropertyInspectorPath": "pi/neewer-scene.html",
+      "States": [{ "Image": "images/neewer-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "Scene" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.govee-power",
+      "Name": "Govee · Power",
+      "Tooltip": "Power on / off / toggle a Govee light (or all).",
+      "Icon": "images/govee",
+      "PropertyInspectorPath": "pi/govee-power.html",
+      "States": [{ "Image": "images/govee-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "Power" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.govee-brightness",
+      "Name": "Govee · Brightness",
+      "Tooltip": "Set Govee brightness 0–100.",
+      "Icon": "images/govee",
+      "PropertyInspectorPath": "pi/govee-brightness.html",
+      "States": [{ "Image": "images/govee-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "Brr" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.govee-color",
+      "Name": "Govee · Color",
+      "Tooltip": "Apply an RGB colour to a Govee light.",
+      "Icon": "images/govee",
+      "PropertyInspectorPath": "pi/govee-color.html",
+      "States": [{ "Image": "images/govee-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "Color" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.govee-effect",
+      "Name": "Govee · Effect",
+      "Tooltip": "Run a software-driven effect (police, candlelight, rainbow…) on a Govee light.",
+      "Icon": "images/govee",
+      "PropertyInspectorPath": "pi/govee-effect.html",
+      "States": [{ "Image": "images/govee-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "Effect" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.preset",
+      "Name": "Vibe Preset",
+      "Tooltip": "Apply a preset to all lights (Neewer + Govee).",
+      "Icon": "images/preset",
+      "PropertyInspectorPath": "pi/preset.html",
+      "States": [{ "Image": "images/preset-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "Vibe" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.all-power",
+      "Name": "All · Power",
+      "Tooltip": "Turn every Neewer and Govee light on / off / toggle in one tap.",
+      "Icon": "images/all",
+      "PropertyInspectorPath": "pi/all-power.html",
+      "States": [{ "Image": "images/all-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "All" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.all-color",
+      "Name": "All · Color",
+      "Tooltip": "Apply the same colour to every light at once (Neewer HSI + Govee RGB).",
+      "Icon": "images/all",
+      "PropertyInspectorPath": "pi/all-color.html",
+      "States": [{ "Image": "images/all-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "All" }],
+      "Controllers": ["Keypad"]
+    },
+    {
+      "UUID": "com.boisclub.lightcontroller.all-brightness",
+      "Name": "All · Brightness",
+      "Tooltip": "Set the same brightness on every light at once.",
+      "Icon": "images/all",
+      "PropertyInspectorPath": "pi/all-brightness.html",
+      "States": [{ "Image": "images/all-key", "TitleAlignment": "middle", "FontSize": "11", "Title": "All" }],
+      "Controllers": ["Keypad"]
+    }
+  ]
+}

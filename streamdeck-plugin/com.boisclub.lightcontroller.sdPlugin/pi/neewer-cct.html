@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+</head><body>
+<div id="server"></div>
+
+<h2>Neewer · CCT</h2>
+<div class="row">
+  <label>Light</label>
+  <select id="light"></select>
+  <button id="refresh">↻</button>
+</div>
+<div class="row">
+  <label>CCT (×100 K)</label>
+  <input type="range" id="cct" min="32" max="56" step="1">
+  <span class="value" id="cctVal"></span>
+</div>
+<div class="row">
+  <label>Brightness</label>
+  <input type="range" id="brightness" min="0" max="100" step="1">
+  <span class="value" id="brrVal"></span>
+</div>
+<div class="row">
+  <label>GM tint</label>
+  <input type="range" id="gm" min="-50" max="50" step="1">
+  <span class="value" id="gmVal"></span>
+</div>
+
+<script src="common.js"></script>
+<script>
+document.getElementById('server').innerHTML = boisPI.serverBlock();
+boisPI.onSettings = (s) => {
+  boisPI.wireServerBlock();
+  if (s.cct == null) s.cct = 40;
+  if (s.brightness == null) s.brightness = 80;
+  if (s.gm == null) s.gm = 0;
+  document.getElementById('cct').value = s.cct;
+  document.getElementById('brightness').value = s.brightness;
+  document.getElementById('gm').value = s.gm;
+  document.getElementById('cctVal').textContent = (s.cct * 100) + 'K';
+  document.getElementById('brrVal').textContent = s.brightness + '%';
+  document.getElementById('gmVal').textContent = s.gm;
+
+  boisPI.loadNeewerLights('light', s.light);
+  boisPI.bind('#light', 'light');
+  boisPI.bind('#cct', 'cct', (v) => parseInt(v, 10));
+  boisPI.bind('#brightness', 'brightness', (v) => parseInt(v, 10));
+  boisPI.bind('#gm', 'gm', (v) => parseInt(v, 10));
+  document.getElementById('cct').addEventListener('input', (e) => document.getElementById('cctVal').textContent = (parseInt(e.target.value, 10) * 100) + 'K');
+  document.getElementById('brightness').addEventListener('input', (e) => document.getElementById('brrVal').textContent = e.target.value + '%');
+  document.getElementById('gm').addEventListener('input', (e) => document.getElementById('gmVal').textContent = e.target.value);
+  document.getElementById('refresh').onclick = () => boisPI.loadNeewerLights('light', boisPI.settings.light);
+};
+</script>
+</body></html>

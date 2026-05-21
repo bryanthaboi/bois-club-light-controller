@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+</head><body>
+<div id="server"></div>
+
+<h2>Neewer · Scene</h2>
+<div class="row">
+  <label>Light</label>
+  <select id="light"></select>
+  <button id="refresh">↻</button>
+</div>
+<div class="row">
+  <label>Scene</label>
+  <select id="sceneId">
+    <option value="1">1 · Lighting</option>
+    <option value="2">2 · Paparazzi</option>
+    <option value="3">3 · Defective bulb</option>
+    <option value="4">4 · Explosion</option>
+    <option value="5">5 · Welding</option>
+    <option value="6">6 · CCT flash</option>
+    <option value="7">7 · HUE flash</option>
+    <option value="8">8 · CCT pulse</option>
+    <option value="9">9 · HUE pulse</option>
+    <option value="10">10 · Cop Car</option>
+    <option value="11">11 · Candlelight</option>
+    <option value="12">12 · HUE Loop</option>
+    <option value="13">13 · CCT Loop</option>
+    <option value="14">14 · INT loop</option>
+    <option value="15">15 · TV Screen</option>
+    <option value="16">16 · Firework</option>
+    <option value="17">17 · Party</option>
+  </select>
+</div>
+<div class="row">
+  <label>Brightness</label>
+  <input type="range" id="brightness" min="0" max="100" step="1">
+  <span class="value" id="brrVal"></span>
+</div>
+<div class="row">
+  <label>Speed</label>
+  <input type="range" id="speed" min="1" max="10" step="1">
+  <span class="value" id="spdVal"></span>
+</div>
+
+<script src="common.js"></script>
+<script>
+document.getElementById('server').innerHTML = boisPI.serverBlock();
+boisPI.onSettings = (s) => {
+  boisPI.wireServerBlock();
+  if (s.sceneId == null) s.sceneId = 1;
+  if (s.brightness == null) s.brightness = 100;
+  if (s.speed == null) s.speed = 5;
+  document.getElementById('sceneId').value = s.sceneId;
+  document.getElementById('brightness').value = s.brightness;
+  document.getElementById('speed').value = s.speed;
+  document.getElementById('brrVal').textContent = s.brightness + '%';
+  document.getElementById('spdVal').textContent = s.speed;
+  boisPI.loadNeewerLights('light', s.light);
+  boisPI.bind('#light', 'light');
+  boisPI.bind('#sceneId', 'sceneId', (v) => parseInt(v, 10));
+  boisPI.bind('#brightness', 'brightness', (v) => parseInt(v, 10));
+  boisPI.bind('#speed', 'speed', (v) => parseInt(v, 10));
+  document.getElementById('brightness').addEventListener('input', (e) => document.getElementById('brrVal').textContent = e.target.value + '%');
+  document.getElementById('speed').addEventListener('input', (e) => document.getElementById('spdVal').textContent = e.target.value);
+  document.getElementById('refresh').onclick = () => boisPI.loadNeewerLights('light', boisPI.settings.light);
+};
+</script>
+</body></html>

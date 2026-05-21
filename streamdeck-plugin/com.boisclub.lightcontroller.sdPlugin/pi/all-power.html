@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="common.css">
+</head><body>
+<div id="server"></div>
+
+<h2>All · Power</h2>
+<div class="row">
+  <label>Mode</label>
+  <select id="mode">
+    <option value="toggle">Toggle</option>
+    <option value="on">On</option>
+    <option value="off">Off</option>
+  </select>
+</div>
+<div class="hint">Hits every Neewer light + every Govee LAN device.</div>
+
+<script src="common.js"></script>
+<script>
+document.getElementById('server').innerHTML = boisPI.serverBlock();
+boisPI.onSettings = (s) => {
+  boisPI.wireServerBlock();
+  if (!s.mode) s.mode = 'toggle';
+  document.getElementById('mode').value = s.mode;
+  boisPI.bind('#mode', 'mode');
+};
+</script>
+</body></html>

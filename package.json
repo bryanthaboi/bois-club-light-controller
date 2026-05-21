@@ -1,0 +1,29 @@
+{
+    "name": "bois-club-light-controller",
+    "version": "1.2.0",
+    "description": "Bois Club Light Controller — Node service + web UI + Stream Deck plugin for Neewer (BLE) and Govee (LAN) lights, with creative vibe presets and software effects.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node --force-node-api-uncaught-exceptions-policy=true index.js",
+        "install-service": "./install.sh",
+        "uninstall-service": "./uninstall.sh"
+    },
+    "keywords": [
+        "neewer",
+        "ble",
+        "bluetooth",
+        "govee",
+        "stream-deck",
+        "lighting",
+        "bois-club"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@stoprocent/noble": "^1.18.2",
+        "body-parser": "^1.20.3",
+        "express": "^4.21.2",
+        "govee-lan-control": "^3.0.2",
+        "plist": "^3.1.0"
+    }
+}

@@ -1,0 +1,61 @@
+/* Bois Club PI styles — minimal SD-themed dark UI. */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: #1f1f23;
+  color: #e7ecf3;
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+body { padding: 14px; }
+h2 {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.3px;
+  color: #8893a8; margin: 14px 0 6px;
+}
+h2:first-child { margin-top: 0; }
+.row {
+  display: flex; align-items: center; gap: 8px; margin: 6px 0;
+}
+.row label {
+  flex: 0 0 90px;
+  font-size: 12px;
+  color: #c2cad8;
+}
+.row input[type="text"],
+.row input[type="number"],
+.row select {
+  flex: 1;
+  background: #2a2a2f;
+  color: #e7ecf3;
+  border: 1px solid #3a3a45;
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 13px;
+  outline: none;
+}
+.row input[type="range"] { flex: 1; }
+.row input[type="color"] {
+  width: 44px; height: 30px; border: 1px solid #3a3a45;
+  background: transparent; cursor: pointer; border-radius: 6px;
+}
+.row .value {
+  min-width: 38px; text-align: right; font-variant-numeric: tabular-nums;
+  color: #c2cad8; font-size: 12px;
+}
+.row button {
+  background: #2a2a2f; color: #e7ecf3;
+  border: 1px solid #3a3a45; border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; cursor: pointer;
+}
+.row button:hover { background: #34343c; }
+.row button.accent {
+  background: linear-gradient(135deg, #ff7a59, #ff5273);
+  color: #fff; border-color: transparent; font-weight: 600;
+}
+.hint { font-size: 11px; color: #8893a8; margin: 4px 0 0 98px; }
+.status {
+  font-size: 11px; padding: 4px 8px; border-radius: 999px;
+  background: #2a2a2f; color: #8893a8; display: inline-block;
+}
+.status.good { background: rgba(56, 214, 160, 0.16); color: #38d6a0; }
+.status.bad { background: rgba(255, 92, 122, 0.16); color: #ff5c7a; }
+hr { border: none; border-top: 1px solid #3a3a45; margin: 12px 0; }
