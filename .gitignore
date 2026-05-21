@@ -1,0 +1,36 @@
+# Archive of unused/legacy modules — kept on disk but not tracked
+archive/
+
+# Dependencies
+node_modules/
+
+# Build output
+streamdeck-plugin/dist/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Misc
+*.pid
+*.seed
+*.pid.lock
